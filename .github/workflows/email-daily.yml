@@ -7,16 +7,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Daily Run
     steps:
-
-      -name: checkout repo content
-       uses: actions/checkout@v2
-
-      -name: setup python
-       uses: actions/checkout@v2
-       with:
-         python-version: '3.7.7'
-
-      -name: execute py script
-       run: |
-         python main.py
+    - uses: actions/checkout@v2
+      name: checkout repo content
+    - uses: actions/setup-python@v2
+      name: setup python
+      with:
+        python-version: '3.7.7'
+    - run: |
+        python main.py
+      name: execute py script
