@@ -1,5 +1,3 @@
-
-# TODO 3. Email Dad joke and quote to myself daily
 # TODO 4. HTML formatting?
 # TODO 5. Configure to use github actions/secrets
 
@@ -12,6 +10,7 @@ import json
 
 DAD_JOKE_URL = 'https://icanhazdadjoke.com/'
 QUOTES_URL = 'https://zenquotes.io/api/today'
+
 
 def send_email(to_address, subject, message):
     # Sends an email message using the email server info provided in config.py
@@ -59,7 +58,6 @@ def get_quote():
         return response
     except Exception as ex:
         raise Exception(f"Unable to retrieve dad joke from {QUOTES_URL}: {ex}")
-
 
 
 print(get_dad_joke()['joke'])
