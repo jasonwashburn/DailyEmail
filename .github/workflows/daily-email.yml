@@ -1,4 +1,4 @@
-name: email-daily
+name: daily-email
 
 on:
   schedule:
