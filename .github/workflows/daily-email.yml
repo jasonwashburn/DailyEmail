@@ -2,7 +2,7 @@ name: daily-email
 
 on:
   schedule:
-    - cron: '0 12 * * *'
+    - cron: '35 20 ? * *'
 
 jobs:
   build:
