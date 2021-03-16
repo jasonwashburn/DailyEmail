@@ -1,15 +1,16 @@
 # TODO 4. HTML formatting?
 # TODO 5. Configure to use github actions/secrets
 
-import datetime as dt
 import smtplib
-import random
-import config  # store our login info separate from code to keep it out of git
 import requests
 import json
+import os
 
 DAD_JOKE_URL = 'https://icanhazdadjoke.com/'
 QUOTES_URL = 'https://zenquotes.io/api/today'
+MY_EMAIL = os.getenv('MY_EMAIL')
+PASSWORD = os.getenv('PASSWORD')
+TARGET_EMAIL = os.getenv('TARGET_EMAIL')
 
 
 def send_email(to_address, subject, message):
@@ -21,21 +22,12 @@ def send_email(to_address, subject, message):
     #   message: message to send
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
-        connection.login(user=config.my_email, password=config.password)
+        connection.login(user=MY_EMAIL, password=PASSWORD)
         connection.sendmail(
-            from_addr=config.my_email,
+            from_addr=MY_EMAIL,
             to_addrs=to_address,
             msg=f"Subject: {subject}\n\n{message}"
         )
-
-
-# Load quote data from quotes.txt into list
-with open("quotes.txt", "r") as quotes_file:
-    quotes = [line for line in quotes_file]
-
-now = dt.datetime.now()
-if now.weekday() == 1:
-    send_email(to_address="wburn.test@yahoo.com", subject="Inspirational Quote", message=random.choice(quotes))
 
 
 def get_dad_joke():
@@ -60,7 +52,9 @@ def get_quote():
         raise Exception(f"Unable to retrieve dad joke from {QUOTES_URL}: {ex}")
 
 
+quote = get_quote()
+dad_joke = get_dad_joke()
 print(get_dad_joke()['joke'])
 print(get_quote())
-email_message = f"{get_dad_joke()['joke']}\n\n{get_quote()[0]['q']} - {get_quote()[0]['a']}"
-send_email(to_address=config.target_email, subject="Daily Dad Joke and Quote", message=email_message)
+email_message = f"{dad_joke['joke']}\n\n{quote[0]['q']} - {quote[0]['a']}"
+send_email(to_address=TARGET_EMAIL, subject="Daily Dad Joke and Quote", message=email_message)
