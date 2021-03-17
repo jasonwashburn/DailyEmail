@@ -15,7 +15,9 @@ jobs:
       name: setup python
       with:
         python-version: '3.7.7'
-    - run: python main.py
+    - run: |
+        pip install -r requirements.txt
+        python main.py
       env:
         MY_EMAIL: ${{ secrets.MY_EMAIL }}
         PASSWORD: ${{ secrets.PASSWORD }}
