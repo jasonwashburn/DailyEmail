@@ -2,7 +2,7 @@ name: daily-email
 
 on:
   schedule:
-    - cron: '35 03 * * *'
+    - cron: '00 09 * * *'
 
 jobs:
   build:
@@ -22,4 +22,3 @@ jobs:
     - run: |
         pip install -r requirements.txt
         python main.py
-      name: execute py script
