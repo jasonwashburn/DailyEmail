@@ -12,6 +12,7 @@ on:
 
 jobs:
   build:
+    environment: daily-run
     runs-on: ubuntu-latest
 
     steps:
@@ -29,4 +30,5 @@ jobs:
         MY_EMAIL: ${{ secrets.MY_EMAIL }}
         PASSWORD: ${{ secrets.PASSWORD }}
         TARGET_EMAIL: ${{ secrets.TARGET_EMAIL }}
+        TEST_STRING:
 
