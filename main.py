@@ -20,6 +20,7 @@ def send_email(to_address, subject, message):
     #   to_address: email address of the recipient
     #   subject: subject of email
     #   message: message to send
+    print(TARGET_EMAIL)
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(user=MY_EMAIL, password=PASSWORD)
