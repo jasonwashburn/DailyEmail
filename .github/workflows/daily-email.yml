@@ -14,10 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Daily Run
-    env:
-      MY_EMAIL: ${{ secrets.MY_EMAIL }}
-      PASSWORD: ${{ secrets.PASSWORD }}
-      TARGET_EMAIL: ${{ secrets.TARGET_EMAIL }}
     steps:
     - uses: actions/checkout@v2
       name: checkout repo content
@@ -25,6 +21,10 @@ jobs:
       name: setup python
       with:
         python-version: '3.7.7'
+      env:
+        MY_EMAIL: ${{ secrets.MY_EMAIL }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        TARGET_EMAIL: ${{ secrets.TARGET_EMAIL }}
     - run: |
         pip install -r requirements.txt
         python main.py
