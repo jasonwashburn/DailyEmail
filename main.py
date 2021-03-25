@@ -1,6 +1,6 @@
 # TODO 4. HTML formatting?
 # TODO 5. Configure to use github actions/secrets
-
+import html
 import smtplib
 import requests
 import json
@@ -54,8 +54,8 @@ def get_quote():
 
 
 quote = get_quote()
-dad_joke = get_dad_joke()
-print(get_dad_joke()['joke'])
-print(get_quote())
-email_message = f"{dad_joke['joke']}\n\n{quote[0]['q']} - {quote[0]['a']}"
+dad_joke = get_dad_joke()['joke']
+print(dad_joke)
+print(quote)
+email_message = f"{dad_joke}\n\n{html.unescape(quote[0]['q'])} - {html.unescape(quote[0]['a'])}"
 send_email(to_address=TARGET_EMAIL, subject="Daily Dad Joke and Quote", message=email_message)
