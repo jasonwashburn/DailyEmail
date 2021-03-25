@@ -1,8 +1,14 @@
 name: daily-email
 
+#on:
+#  schedule:
+#    - cron: '00 09 * * *'
 on:
-  schedule:
-    - cron: '00 09 * * *'
+  # Trigger the workflow on push request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
 
 jobs:
   build:
