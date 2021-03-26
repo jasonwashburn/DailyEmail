@@ -20,14 +20,13 @@ def send_email(to_address, subject, message):
     #   to_address: email address of the recipient
     #   subject: subject of email
     #   message: message to send
-    print(f"target email = {TARGET_EMAIL}")
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(user=MY_EMAIL, password=PASSWORD)
         connection.sendmail(
             from_addr=MY_EMAIL,
             to_addrs=to_address,
-            msg=f"Subject: {subject}\n\n{message}"
+            msg=f"Subject: {subject}\n\n{message}".encode('utf-8')
         )
 
 
@@ -48,7 +47,8 @@ def get_quote():
     try:
         request = requests.get(QUOTES_URL)
         response = json.loads(request.text)
-        return response
+        formatted_quote = f"{response[0]['q']} - {response[0]['a']}"
+        return formatted_quote
     except Exception as ex:
         raise Exception(f"Unable to retrieve dad joke from {QUOTES_URL}: {ex}")
 
@@ -57,5 +57,5 @@ quote = get_quote()
 dad_joke = get_dad_joke()['joke']
 print(dad_joke)
 print(quote)
-email_message = f"{dad_joke}\n\n{html.unescape(quote[0]['q'])} - {html.unescape(quote[0]['a'])}"
+email_message = f"{dad_joke}\n\n{quote}"
 send_email(to_address=TARGET_EMAIL, subject="Daily Dad Joke and Quote", message=email_message)
