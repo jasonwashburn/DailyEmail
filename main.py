@@ -53,9 +53,12 @@ def get_quote():
         raise Exception(f"Unable to retrieve dad joke from {QUOTES_URL}: {ex}")
 
 
+extra_links = ["https://xkcd.com/"]
+
 quote = get_quote()
 dad_joke = get_dad_joke()['joke']
-print(dad_joke)
-print(quote)
-email_message = f"{dad_joke}\n\n{quote}"
+email_message = f"{dad_joke}\n\n{quote}\n\n"
+for link in extra_links:
+    email_message += f"{link}\n"
+print(email_message)
 send_email(to_address=TARGET_EMAIL, subject="Daily Dad Joke and Quote", message=email_message)
