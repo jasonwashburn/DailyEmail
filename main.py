@@ -5,12 +5,13 @@ import smtplib
 import requests
 import json
 import os
+import config
 
 DAD_JOKE_URL = 'https://icanhazdadjoke.com/'
 QUOTES_URL = 'https://zenquotes.io/api/today'
-MY_EMAIL = os.getenv('MY_EMAIL')
-PASSWORD = os.getenv('PASSWORD')
-TARGET_EMAIL = os.getenv('TARGET_EMAIL')
+MY_EMAIL = config.my_email
+PASSWORD = config.password
+TARGET_EMAIL = config.target_email
 
 
 def send_email(to_address, subject, message):
